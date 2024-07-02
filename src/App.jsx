@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react"
 import Card from "./Components/Card"
+import GlobalStyles from "./Components/GlobalStyles"
+import styled from "styled-components"
 
 const App = () => {
 
@@ -18,6 +20,7 @@ const App = () => {
 
   return (
     <>
+    <GlobalStyles />
       <main>
   
         <section>
