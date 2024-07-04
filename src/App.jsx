@@ -2,17 +2,13 @@ import { useEffect, useState } from "react"
 import Card from "./Components/Card"
 import GlobalStyles from "./Components/GlobalStyles"
 import styled from "styled-components"
+import Header from "./Components/Header"
 
 const AppContainer = styled.div`
   width:1280px;
   max-width:100%;
   margin: 0 auto;
   min-height:100vh;
-`
-const Header = styled.header`
-   padding: 60px 0;
-   display: flex;
-   justify-content: space-between;
 `
 
 const CardContainer = styled.div`
@@ -35,6 +31,7 @@ const ProductsContainer = styled.ul`
 const App = () => {
 
   const [products, setProducts] = useState([])
+  const [search, setSearch] = useState("")
 
 
   useEffect(() => {
@@ -47,35 +44,45 @@ const App = () => {
     getProducts()
   }, [])
 
+  const handleSearchProduct =(e)=>{
+    setSearch(e.target.value)
+}
+
   return (
     <>
-        <GlobalStyles />
-        <AppContainer>
-          <Header />
+      <GlobalStyles />
+      <AppContainer>
+        <Header
+          search={search}
+          handleSearchProduct={handleSearchProduct} />
         <main>
           <section>
             <CardContainer>
               <ProductsContainer>
-                {products.map(({ id, title, price, description, category, image }) => {
-                  return (
-                    <Card
-                      key={id}
-                      id={id}
-                      title={title}
-                      price={price}
-                      description={description}
-                      image={image}
-                      category={category}
-                      products={products}
-                      setProducts={setProducts}
-                    />
-                  )
-                })}
+                {products
+                .filter(product => {
+                  return search === "" || product.title.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+                })
+                  .map(({ id, title, price, description, category, image }) => {
+                    return (
+                      <Card
+                        key={id}
+                        id={id}
+                        title={title}
+                        price={price}
+                        description={description}
+                        image={image}
+                        category={category}
+                        products={products}
+                        setProducts={setProducts}
+                      />
+                    )
+                  })}
               </ProductsContainer>
             </CardContainer>
           </section>
         </main>
-        </AppContainer>
+      </AppContainer>
     </>
   )
 }
