@@ -3,6 +3,7 @@ import Card from "./Components/Card"
 import GlobalStyles from "./Components/GlobalStyles"
 import styled from "styled-components"
 import Header from "./Components/Header"
+import NotFound from "./Components/NotFound"
 
 const AppContainer = styled.div`
   width:1280px;
@@ -44,9 +45,9 @@ const App = () => {
     getProducts()
   }, [])
 
-  const handleSearchProduct =(e)=>{
+  const handleSearchProduct = (e) => {
     setSearch(e.target.value)
-}
+  }
 
   return (
     <>
@@ -59,25 +60,27 @@ const App = () => {
           <section>
             <CardContainer>
               <ProductsContainer>
-                {products
-                .filter(product => {
+                {products.filter(product => {
                   return search === "" || product.title.toLocaleLowerCase().includes(search.toLocaleLowerCase())
-                })
-                  .map(({ id, title, price, description, category, image }) => {
-                    return (
-                      <Card
-                        key={id}
-                        id={id}
-                        title={title}
-                        price={price}
-                        description={description}
-                        image={image}
-                        category={category}
-                        products={products}
-                        setProducts={setProducts}
-                      />
-                    )
-                  })}
+                }).length === 0 ? (<NotFound message={search} />) : (
+                  products.filter(product => {
+                    return search === "" || product.title.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+                  })
+                    .map(({ id, title, price, description, category, image }) => {
+                      return (
+                        <Card
+                          key={id}
+                          id={id}
+                          title={title}
+                          price={price}
+                          description={description}
+                          image={image}
+                          category={category}
+                          products={products}
+                          setProducts={setProducts}
+                        />
+                      )
+                    }))}
               </ProductsContainer>
             </CardContainer>
           </section>

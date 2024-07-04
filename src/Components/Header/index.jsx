@@ -40,15 +40,15 @@ const Header = ({ search, handleSearchProduct }) => {
         <HeaderContainer>
             <Navigation>
                 <ul >
-                    <NavLink ><a href="/" >Inicio</a></NavLink>
-                    <NavLink ><a href="#" >Novedades</a></NavLink>
-                    <NavLink ><a href="#" >Ofertas</a></NavLink>
-                    <NavLink ><a href="#" >Contacto</a></NavLink>
+                    <NavLink ><a href="/" >Home</a></NavLink>
+                    <NavLink ><a href="#" >New In</a></NavLink>
+                    <NavLink ><a href="#" >Sale</a></NavLink>
+                    <NavLink ><a href="#" >Contact</a></NavLink>
                 </ul>
             </Navigation>
             <InputSearch
                     type="text"
-                    placeholder="¿Qué estás buscando?"
+                    placeholder="What are you looking for?"
                     value={search}
                     onChange={handleSearchProduct} />
         </HeaderContainer>

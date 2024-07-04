@@ -83,7 +83,7 @@ const Card = ({ id, title, price, description, category, image, products, setPro
                 <Price>Price: {price}</Price>
                 <Description>{description}</Description>
                 <Category>Category: <span>{category}</span></Category>
-                <DeleteButton onClick={() => handleDeleteProduct(id)}>Eliminar</DeleteButton>
+                <DeleteButton onClick={() => handleDeleteProduct(id)}>Delete</DeleteButton>
             </ProductCard>
     )
 }
