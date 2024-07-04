@@ -49,6 +49,15 @@ const App = () => {
     setSearch(e.target.value)
   }
 
+  const handleEmptySearch = () => {
+    return products.filter(product => {
+      return (
+        search === "" || 
+        product.title.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+      )
+    })
+  }
+
   return (
     <>
       <GlobalStyles />
@@ -60,27 +69,20 @@ const App = () => {
           <section>
             <CardContainer>
               <ProductsContainer>
-                {products.filter(product => {
-                  return search === "" || product.title.toLocaleLowerCase().includes(search.toLocaleLowerCase())
-                }).length === 0 ? (<NotFound message={search} />) : (
-                  products.filter(product => {
-                    return search === "" || product.title.toLocaleLowerCase().includes(search.toLocaleLowerCase())
-                  })
-                    .map(({ id, title, price, description, category, image }) => {
-                      return (
-                        <Card
-                          key={id}
-                          id={id}
-                          title={title}
-                          price={price}
-                          description={description}
-                          image={image}
-                          category={category}
-                          products={products}
-                          setProducts={setProducts}
-                        />
-                      )
-                    }))}
+                {handleEmptySearch().length === 0 && (<NotFound message={search}/> )}
+                {handleEmptySearch().map(({ id, title, price, description, category, image }) => (
+                    <Card
+                      key={id}
+                      id={id}
+                      title={title}
+                      price={price}
+                      description={description}
+                      image={image}
+                      category={category}
+                      products={products}
+                      setProducts={setProducts}
+                    />
+                ))}
               </ProductsContainer>
             </CardContainer>
           </section>
